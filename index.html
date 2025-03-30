@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="Sport NZ Media Asset Finder" property="og:title"/>
+<meta content="Extract media files from web pages for content auditing" property="og:description"/>
+<meta content="assets/img_64x64_53b6536f.png" property="og:image"/>
+<meta content="website" property="og:type"/>
+<link href="assets/img_32x32_53b6536f.png" rel="icon" type="image/png"/>
+<title>Sport NZ Media Asset Finder</title>
+<script src="assets/script_62e001ef.js"></script>
+<script src="assets/script_a4e8ef8b.js"></script>
+<link href="assets/style_5a793900.css" rel="stylesheet"/>
+<style>
+        :root {
+            --primary-color: #ad1a32;
+            --primary-hover: #8a1528;
+            --light-primary: #f8e6e8;
+            --dark-primary: #7a1323;
+            --accent-color: #0077cc;
+            --accent-hover: #005fa3;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: #f5f7fa;
+        }
+        
+        .sport-nz-primary {
+            background-color: var(--primary-color);
+        }
+        
+        .sport-nz-primary-hover:hover {
+            background-color: var(--primary-hover);
+        }
+        
+        .sport-nz-text {
+            color: var(--primary-color);
+        }
+        
+        .sport-nz-border {
+            border-color: var(--primary-color);
+        }
+        
+        .sport-nz-bg-light {
+            background-color: var(--light-primary);
+        }
+        
+        .accent-button {
+            background-color: var(--accent-color);
+        }
+        
+        .accent-button:hover {
+            background-color: var(--accent-hover);
+        }
+        
+        .card {
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        .app-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-primary) 100%);
+        }
+        
+        .btn {
+            transition: all 0.3s ease;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.625rem 1.25rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        }
+        
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+        
+        .btn-secondary {
+            background-color: #f3f4f6;
+            color: #374151;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #e5e7eb;
+        }
+        
+        .btn-accent {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        .btn-accent:hover {
+            background-color: var(--accent-hover);
+        }
+        
+        .input-field {
+            border-radius: 0.5rem;
+            border: 1px solid #d1d5db;
+            padding: 0.625rem 1rem;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px var(--light-primary);
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 3rem;
+            height: 1.5rem;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #e5e7eb;
+            transition: .4s;
+            border-radius: 1.5rem;
+        }
+        
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 1.125rem;
+            width: 1.125rem;
+            left: 0.1875rem;
+            bottom: 0.1875rem;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .toggle-slider {
+            background-color: var(--primary-color);
+        }
+        
+        input:checked + .toggle-slider:before {
+            transform: translateX(1.5rem);
+        }
+        
+        .progress-bar-container {
+            height: 0.5rem;
+            background-color: #e5e7eb;
+            border-radius: 0.25rem;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            transition: width 0.3s ease;
+        }
+        
+        .results-table {
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%;
+        }
+        
+        .results-table th {
+            background-color: #f9fafb;
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            color: #6b7280;
+            padding: 0.75rem 1rem;
+            text-align: left;
+        }
+        
+        .results-table td {
+            padding: 1rem;
+            vertical-align: top;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        .results-table tr:hover {
+            background-color: #f9fafb;
+        }
+        
+        .source-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .source-card:hover {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .source-header {
+            background: linear-gradient(to right, #f9fafb, #ffffff);
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            border-radius: 9999px;
+        }
+        
+        .badge-primary {
+            background-color: var(--light-primary);
+            color: var(--primary-color);
+        }
+        
+        .badge-accent {
+            background-color: #e0f2fe;
+            color: var(--accent-color);
+        }
+        
+        .file-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            border-radius: 9999px;
+        }
+        
+        .file-badge-pdf {
+            background-color: #fee2e2;
+            color: #dc2626;
+        }
+        
+        .file-badge-word {
+            background-color: #dbeafe;
+            color: #2563eb;
+        }
+        
+        .file-badge-excel {
+            background-color: #dcfce7;
+            color: #16a34a;
+        }
+        
+        .file-badge-powerpoint {
+            background-color: #ffedd5;
+            color: #ea580c;
+        }
+        
+        .file-badge-video {
+            background-color: #f3e8ff;
+            color: #9333ea;
+        }
+        
+        .file-badge-other {
+            background-color: #f3f4f6;
+            color: #6b7280;
+        }
+        
+        .animate-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: .5;
+            }
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a1a1a1;
+        }
+        
+        /* Notification styles */
+        .notification {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            max-width: 24rem;
+        }
+        
+        .notification.success {
+            background-color: #10b981;
+            color: white;
+        }
+        
+        .notification.error {
+            background-color: #ef4444;
+            color: white;
+        }
+        
+        .notification.warning {
+            background-color: #f59e0b;
+            color: white;
+        }
+        
+        .notification.info {
+            background-color: #3b82f6;
+            color: white;
+        }
+    </style>
+<script>
+            window.load_data_from_csv = (filename) => {
+                // Implementation needed when code is downloaded
+            };
+
+            window.save_data_to_csv = (filename, data) => {
+                // Implementation needed when code is downloaded
+            };
+
+            window.call_llm = (system_prompt, user_messages, json_fields) => {
+                // Implementation needed when code is downloaded
+            };
+        </script></head>
+<body class="min-h-screen flex flex-col">
+<header class="app-header text-white py-6 shadow-lg">
+<div class="container mx-auto px-6">
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<div class="mr-4">
+<i class="fas fa-file-alt text-2xl"></i>
+</div>
+<div>
+<h1 class="text-2xl font-bold">Sport NZ Media Asset Finder</h1>
+<p class="text-sm opacity-80 mt-1">Find media files across multiple pages</p>
+</div>
+</div>
+<div>
+<span class="text-sm bg-white bg-opacity-20 px-3 py-1 rounded-full">
+<i class="fas fa-bolt mr-1"></i> Works completely offline
+                    </span>
+</div>
+</div>
+</div>
+</header>
+<main class="container mx-auto px-6 py-8 flex-grow max-w-6xl">
+<section class="mb-8">
+<div class="card bg-white p-6">
+<div class="flex items-center mb-4">
+<div class="w-10 h-10 rounded-full flex items-center justify-center bg-blue-100 text-blue-600 mr-3">
+<i class="fas fa-info-circle"></i>
+</div>
+<h2 class="text-xl font-bold sport-nz-text">How It Works</h2>
+</div>
+<div class="grid md:grid-cols-5 gap-4 mb-4">
+<div class="bg-gray-50 p-4 rounded-lg text-center">
+<div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center mx-auto mb-2">
+<span class="font-semibold">1</span>
+</div>
+<p class="text-sm">Paste URLs or HTML</p>
+</div>
+<div class="bg-gray-50 p-4 rounded-lg text-center">
+<div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center mx-auto mb-2">
+<span class="font-semibold">2</span>
+</div>
+<p class="text-sm">Select input type</p>
+</div>
+<div class="bg-gray-50 p-4 rounded-lg text-center">
+<div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center mx-auto mb-2">
+<span class="font-semibold">3</span>
+</div>
+<p class="text-sm">Extract media files</p>
+</div>
+<div class="bg-gray-50 p-4 rounded-lg text-center">
+<div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center mx-auto mb-2">
+<span class="font-semibold">4</span>
+</div>
+<p class="text-sm">Filter by file type</p>
+</div>
+<div class="bg-gray-50 p-4 rounded-lg text-center">
+<div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center mx-auto mb-2">
+<span class="font-semibold">5</span>
+</div>
+<p class="text-sm">Export to CSV</p>
+</div>
+</div>
+<div class="text-sm text-gray-600 bg-blue-50 p-4 rounded-lg">
+<p><i class="fas fa-lightbulb text-blue-500 mr-2"></i> <strong>Tip:</strong> This tool finds PDFs, Word documents, Excel files, PowerPoint presentations, and embedded videos.</p>
+</div>
+</div>
+</section>
+<section class="mb-8">
+<div class="card bg-white p-6">
+<div class="flex items-center mb-6">
+<div class="w-10 h-10 rounded-full flex items-center justify-center bg-indigo-100 text-indigo-600 mr-3">
+<i class="fas fa-edit"></i>
+</div>
+<h2 class="text-xl font-bold sport-nz-text">Input</h2>
+</div>
+<div class="mb-6">
+<div class="flex items-center space-x-6 mb-4">
+<label class="inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" name="inputType" type="radio" value="urls"/>
+<div class="w-5 h-5 border-2 border-gray-300 rounded-full peer-checked:border-4 peer-checked:border-red-600"></div>
+<span class="ml-2 text-gray-700">URLs (one per line)</span>
+</label>
+<label class="inline-flex items-center cursor-pointer">
+<input class="sr-only peer" name="inputType" type="radio" value="html"/>
+<div class="w-5 h-5 border-2 border-gray-300 rounded-full peer-checked:border-4 peer-checked:border-red-600"></div>
+<span class="ml-2 text-gray-700">HTML Content</span>
+</label>
+</div>
+<div class="relative">
+<textarea class="input-field h-64 font-mono text-sm" id="inputContent" placeholder="Paste URLs (one per line) or HTML content here..."></textarea>
+<div class="absolute top-2 right-2">
+<button class="text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 px-2 py-1 rounded" id="pasteFromClipboard">
+<i class="fas fa-paste mr-1"></i> Paste
+                            </button>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap gap-4">
+<button class="btn btn-primary" id="extractBtn">
+<i class="fas fa-file-search mr-2"></i>
+                        Extract Media Files
+                    </button>
+<button class="btn btn-secondary" id="clearBtn">
+<i class="fas fa-trash-alt mr-2"></i>
+                        Clear
+                    </button>
+</div>
+</div>
+</section>
+<section class="mb-8 hidden" id="progressSection">
+<div class="card bg-white p-6">
+<div class="flex items-center mb-4">
+<div class="w-10 h-10 rounded-full flex items-center justify-center bg-yellow-100 text-yellow-600 mr-3">
+<i class="fas fa-spinner fa-spin"></i>
+</div>
+<h2 class="text-xl font-bold sport-nz-text">Processing</h2>
+</div>
+<div class="progress-bar-container mb-2">
+<div class="progress-bar" id="progressBar" style="width: 0%"></div>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-gray-600" id="progressText">Processing URL 0 of 0</span>
+<span class="font-medium" id="progressPercentage">0%</span>
+</div>
+<div class="mt-4 bg-gray-50 p-3 rounded-lg hidden" id="currentUrlContainer">
+<p class="text-sm text-gray-600">
+<span class="font-medium">Currently processing:</span>
+<span class="ml-2 font-mono text-xs" id="currentUrl"></span>
+</p>
+</div>
+</div>
+</section>
+<section class="mb-8 hidden" id="resultsSection">
+<div class="card bg-white p-6">
+<div class="flex items-center justify-between mb-6 flex-wrap gap-4">
+<div class="flex items-center">
+<div class="w-10 h-10 rounded-full flex items-center justify-center bg-green-100 text-green-600 mr-3">
+<i class="fas fa-check-circle"></i>
+</div>
+<div>
+<h2 class="text-xl font-bold sport-nz-text">Media Files Found</h2>
+<p class="text-sm text-gray-600" id="resultsSummary">0 files found across 0 pages</p>
+</div>
+</div>
+<div class="flex flex-wrap gap-4">
+<div class="relative">
+<input class="input-field pl-10 pr-4 py-2" id="searchInput" placeholder="Search..." type="text"/>
+<i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+</div>
+<button class="btn btn-accent" id="exportBtn">
+<i class="fas fa-file-export mr-2"></i>
+                            Export to CSV
+                        </button>
+</div>
+</div>
+<div class="mb-6">
+<div class="flex items-center mb-2">
+<span class="text-sm font-medium mr-3">Filter by file type:</span>
+</div>
+<div class="flex flex-wrap gap-3">
+<label class="inline-flex items-center cursor-pointer bg-gray-100 hover:bg-gray-200 px-3 py-2 rounded-lg">
+<input checked="" class="file-type-filter sr-only" type="checkbox" value="pdf"/>
+<div class="w-4 h-4 border border-gray-300 rounded mr-2 flex items-center justify-center file-checkbox">
+<i class="fas fa-check text-xs text-red-600 hidden"></i>
+</div>
+<span class="file-badge-pdf mr-1"><i class="fas fa-file-pdf mr-1"></i> PDF</span>
+</label>
+<label class="inline-flex items-center cursor-pointer bg-gray-100 hover:bg-gray-200 px-3 py-2 rounded-lg">
+<input checked="" class="file-type-filter sr-only" type="checkbox" value="word"/>
+<div class="w-4 h-4 border border-gray-300 rounded mr-2 flex items-center justify-center file-checkbox">
+<i class="fas fa-check text-xs text-blue-600 hidden"></i>
+</div>
+<span class="file-badge-word mr-1"><i class="fas fa-file-word mr-1"></i> Word</span>
+</label>
+<label class="inline-flex items-center cursor-pointer bg-gray-100 hover:bg-gray-200 px-3 py-2 rounded-lg">
+<input checked="" class="file-type-filter sr-only" type="checkbox" value="excel"/>
+<div class="w-4 h-4 border border-gray-300 rounded mr-2 flex items-center justify-center file-checkbox">
+<i class="fas fa-check text-xs text-green-600 hidden"></i>
+</div>
+<span class="file-badge-excel mr-1"><i class="fas fa-file-excel mr-1"></i> Excel</span>
+</label>
+<label class="inline-flex items-center cursor-pointer bg-gray-100 hover:bg-gray-200 px-3 py-2 rounded-lg">
+<input checked="" class="file-type-filter sr-only" type="checkbox" value="powerpoint"/>
+<div class="w-4 h-4 border border-gray-300 rounded mr-2 flex items-center justify-center file-checkbox">
+<i class="fas fa-check text-xs text-orange-600 hidden"></i>
+</div>
+<span class="file-badge-powerpoint mr-1"><i class="fas fa-file-powerpoint mr-1"></i> PowerPoint</span>
+</label>
+<label class="inline-flex items-center cursor-pointer bg-gray-100 hover:bg-gray-200 px-3 py-2 rounded-lg">
+<input checked="" class="file-type-filter sr-only" type="checkbox" value="video"/>
+<div class="w-4 h-4 border border-gray-300 rounded mr-2 flex items-center justify-center file-checkbox">
+<i class="fas fa-check text-xs text-purple-600 hidden"></i>
+</div>
+<span class="file-badge-video mr-1"><i class="fas fa-video mr-1"></i> Video</span>
+</label>
+</div>
+</div>
+<div class="flex items-center justify-between flex-wrap gap-4 mb-6">
+<span class="text-sm text-gray-600" id="filteredCount">Showing 0 of 0 files</span>
+<div class="flex items-center gap-4">
+<button class="text-sm text-blue-600 hover:text-blue-800" id="expandAllBtn">
+<i class="fas fa-expand-alt mr-1"></i> Expand All
+                        </button>
+<button class="text-sm text-blue-600 hover:text-blue-800" id="collapseAllBtn">
+<i class="fas fa-compress-alt mr-1"></i> Collapse All
+                        </button>
+</div>
+</div>
+<div class="space-y-6" id="resultsContainer">
+<!-- Results will be inserted here -->
+</div>
+<div class="hidden py-12 text-center" id="noResults">
+<div class="inline-block p-4 rounded-full bg-gray-100 mb-4">
+<i class="fas fa-search text-3xl text-gray-400"></i>
+</div>
+<h3 class="text-lg font-medium text-gray-700">No media files found matching your criteria</h3>
+<p class="text-gray-500 mt-2">Try adjusting your search or input different URLs</p>
+</div>
+</div>
+</section>
+<section class="hidden" id="loadingSection">
+<div class="flex flex-col items-center justify-center py-16">
+<div class="w-16 h-16 border-4 border-t-4 border-gray-200 border-t-red-600 rounded-full animate-spin mb-4"></div>
+<div class="text-lg font-medium sport-nz-text">Processing your request...</div>
+<p class="text-gray-500 mt-2">This may take a moment depending on the number of URLs</p>
+</div>
+</section>
+</main>
+<footer class="bg-gray-800 text-white py-8 mt-auto">
+<div class="container mx-auto px-6">
+<div class="flex flex-col md:flex-row justify-between items-center">
+<div class="mb-4 md:mb-0">
+<h3 class="text-lg font-semibold">Sport NZ Media Asset Finder</h3>
+<p class="text-gray-400 text-sm mt-1">A tool for finding media files across multiple pages</p>
+</div>
+<div class="flex space-x-4">
+<a class="text-gray-400 hover:text-white transition-colors" href="#">
+<i class="fas fa-question-circle mr-1"></i> Help
+                    </a>
+<a class="text-gray-400 hover:text-white transition-colors" href="#">
+<i class="fas fa-code mr-1"></i> About
+                    </a>
+</div>
+</div>
+<div class="mt-6 pt-6 border-t border-gray-700 text-center text-gray-400 text-sm">
+<p>© 2025 Sport NZ Media Asset Finder - Works completely offline</p>
+</div>
+</div>
+</footer>
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const inputContent = document.getElementById('inputContent');
+            const extractBtn = document.getElementById('extractBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            const exportBtn = document.getElementById('exportBtn');
+            const resultsContainer = document.getElementById('resultsContainer');
+            const resultsSection = document.getElementById('resultsSection');
+            const loadingSection = document.getElementById('loadingSection');
+            const progressSection = document.getElementById('progressSection');
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+            const progressPercentage = document.getElementById('progressPercentage');
+            const currentUrlContainer = document.getElementById('currentUrlContainer');
+            const currentUrl = document.getElementById('currentUrl');
+            const searchInput = document.getElementById('searchInput');
+            const noResults = document.getElementById('noResults');
+            const inputTypeRadios = document.querySelectorAll('input[name="inputType"]');
+            const resultsSummary = document.getElementById('resultsSummary');
+            const filteredCount = document.getElementById('filteredCount');
+            const expandAllBtn = document.getElementById('expandAllBtn');
+            const collapseAllBtn = document.getElementById('collapseAllBtn');
+            const pasteFromClipboard = document.getElementById('pasteFromClipboard');
+            const fileTypeFilters = document.querySelectorAll('.file-type-filter');
+            
+            // Store extracted media assets
+            let allMediaAssets = [];
+            let filteredMediaAssets = [];
+            let expandedSources = new Set();
+            
+            // File type definitions
+            const fileTypes = {
+                pdf: {
+                    name: 'PDF',
+                    icon: 'fa-file-pdf',
+                    class: 'file-badge-pdf',
+                    extensions: ['.pdf']
+                },
+                word: {
+                    name: 'Word',
+                    icon: 'fa-file-word',
+                    class: 'file-badge-word',
+                    extensions: ['.doc', '.docx', '.docm', '.dot', '.dotx']
+                },
+                excel: {
+                    name: 'Excel',
+                    icon: 'fa-file-excel',
+                    class: 'file-badge-excel',
+                    extensions: ['.xls', '.xlsx', '.xlsm', '.xlsb', '.csv']
+                },
+                powerpoint: {
+                    name: 'PowerPoint',
+                    icon: 'fa-file-powerpoint',
+                    class: 'file-badge-powerpoint',
+                    extensions: ['.ppt', '.pptx', '.pptm', '.pps', '.ppsx']
+                },
+                video: {
+                    name: 'Video',
+                    icon: 'fa-video',
+                    class: 'file-badge-video',
+                    extensions: ['.mp4', '.webm', '.ogg', '.mov', '.avi', '.wmv', '.flv']
+                }
+            };
+            
+            // Update checkbox appearance
+            fileTypeFilters.forEach(filter => {
+                const checkbox = filter.nextElementSibling;
+                const checkIcon = checkbox.querySelector('i');
+                
+                if (filter.checked) {
+                    checkbox.classList.add('bg-gray-300', 'border-gray-400');
+                    checkIcon.classList.remove('hidden');
+                }
+                
+                filter.addEventListener('change', function() {
+                    if (this.checked) {
+                        checkbox.classList.add('bg-gray-300', 'border-gray-400');
+                        checkIcon.classList.remove('hidden');
+                    } else {
+                        checkbox.classList.remove('bg-gray-300', 'border-gray-400');
+                        checkIcon.classList.add('hidden');
+                    }
+                    filterResults();
+                });
+            });
+            
+            // Update placeholder based on selected input type
+            inputTypeRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    if (this.value === 'urls') {
+                        inputContent.placeholder = 'Paste URLs (one per line) here...';
+                    } else {
+                        inputContent.placeholder = 'Paste HTML content here...';
+                    }
+                });
+            });
+            
+            // Paste from clipboard button
+            pasteFromClipboard.addEventListener('click', async function() {
+                try {
+                    const text = await navigator.clipboard.readText();
+                    inputContent.value = text;
+                } catch (err) {
+                    console.error('Failed to read clipboard contents: ', err);
+                    showNotification('Unable to access clipboard. Please paste content manually.', 'error');
+                }
+            });
+
+            // Extract media files from HTML
+            extractBtn.addEventListener('click', async function() {
+                const content = inputContent.value.trim();
+                const inputType = document.querySelector('input[name="inputType"]:checked').value;
+                
+                if (!content) {
+                    showNotification('Please paste content first.', 'error');
+                    return;
+                }
+                
+                // Show loading indicator
+                loadingSection.classList.remove('hidden');
+                resultsSection.classList.add('hidden');
+                progressSection.classList.add('hidden');
+                
+                // Reset media assets array
+                allMediaAssets = [];
+                expandedSources = new Set();
+                
+                try {
+                    if (inputType === 'urls') {
+                        // Process URLs
+                        const urls = content.split('\n')
+                            .map(url => url.trim())
+                            .filter(url => url && (url.startsWith('http://') || url.startsWith('https://')));
+                        
+                        if (urls.length === 0) {
+                            throw new Error('No valid URLs found. URLs must start with http:// or https://');
+                        }
+                        
+                        // Show progress section
+                        progressSection.classList.remove('hidden');
+                        loadingSection.classList.add('hidden');
+                        
+                        // Process each URL
+                        for (let i = 0; i < urls.length; i++) {
+                            const url = urls[i];
+                            
+                            // Update progress
+                            const progress = Math.round(((i) / urls.length) * 100);
+                            progressBar.style.width = `${progress}%`;
+                            progressText.textContent = `Processing URL ${i + 1} of ${urls.length}`;
+                            progressPercentage.textContent = `${progress}%`;
+                            
+                            // Show current URL
+                            currentUrlContainer.classList.remove('hidden');
+                            currentUrl.textContent = url;
+                            
+                            // Fetch HTML from URL
+                            try {
+                                const htmlContent = await fetchUrl(url);
+                                processHtml(htmlContent, url);
+                            } catch (error) {
+                                console.error(`Error fetching ${url}:`, error);
+                                showNotification(`Error fetching ${url}: ${error.message}`, 'warning', 3000);
+                                // Continue with next URL
+                            }
+                            
+                            // Small delay to allow UI updates
+                            await new Promise(resolve => setTimeout(resolve, 50));
+                        }
+                        
+                        // Complete progress
+                        progressBar.style.width = '100%';
+                        progressText.textContent = `Completed processing ${urls.length} URLs`;
+                        progressPercentage.textContent = '100%';
+                        
+                    } else {
+                        // Process HTML directly
+                        processHtml(content);
+                    }
+                    
+                    // Display results
+                    filterResults();
+                    resultsSection.classList.remove('hidden');
+                    
+                    // Update summary
+                    const uniqueSourcesCount = new Set(allMediaAssets.map(asset => asset.sourceUrl)).size;
+                    resultsSummary.textContent = `${allMediaAssets.length} media files found across ${uniqueSourcesCount} pages`;
+                    
+                    // Show success notification
+                    if (allMediaAssets.length > 0) {
+                        showNotification(`Found ${allMediaAssets.length} media files!`, 'success');
+                    } else {
+                        showNotification('No media files found. Try different URLs or content.', 'warning');
+                    }
+                    
+                } catch (error) {
+                    console.error('Error processing content:', error);
+                    showNotification('Error: ' + error.message, 'error');
+                } finally {
+                    loadingSection.classList.add('hidden');
+                    // Hide progress after a short delay
+                    setTimeout(() => {
+                        progressSection.classList.add('hidden');
+                    }, 2000);
+                }
+            });
+            
+            // Show notification
+            function showNotification(message, type = 'info', duration = 5000) {
+                // Remove any existing notifications
+                const existingNotifications = document.querySelectorAll('.notification');
+                existingNotifications.forEach(notification => {
+                    notification.remove();
+                });
+                
+                // Create notification element
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                
+                // Set icon based on type
+                let icon = 'info-circle';
+                if (type === 'success') icon = 'check-circle';
+                if (type === 'error') icon = 'exclamation-circle';
+                if (type === 'warning') icon = 'exclamation-triangle';
+                
+                notification.innerHTML = `
+                    <i class="fas fa-${icon} mr-2"></i>
+                    <span>${message}</span>
+                    <button class="ml-4 text-white opacity-70 hover:opacity-100 transition-opacity">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                
+                // Add close button functionality
+                const closeButton = notification.querySelector('button');
+                closeButton.addEventListener('click', () => {
+                    notification.style.opacity = '0';
+                    notification.style.transform = 'translateY(10px)';
+                    setTimeout(() => notification.remove(), 300);
+                });
+                
+                // Add to document
+                document.body.appendChild(notification);
+                
+                // Auto-remove after duration
+                if (duration) {
+                    setTimeout(() => {
+                        if (notification.parentNode) {
+                            notification.style.opacity = '0';
+                            notification.style.transform = 'translateY(10px)';
+                            setTimeout(() => {
+                                if (notification.parentNode) {
+                                    notification.remove();
+                                }
+                            }, 300);
+                        }
+                    }, duration);
+                }
+            }
+
+            // Fetch HTML from URL using multiple CORS proxy methods
+            async function fetchUrl(url) {
+                try {
+                    // Create a controller for timeout management
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
+                    
+                    // List of CORS proxies to try in order
+                    const corsProxies = [
+                        `https://corsproxy.io/?${encodeURIComponent(url)}`,
+                        `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+                        `https://cors-anywhere.herokuapp.com/${url}`,
+                        `https://crossorigin.me/${url}`,
+                        `https://thingproxy.freeboard.io/fetch/${url}`
+                    ];
+                    
+                    // First try direct fetch (will work for CORS-enabled sites)
+                    try {
+                        console.log(`Attempting direct fetch for ${url}`);
+                        const directResponse = await fetch(url, {
+                            signal: controller.signal,
+                            headers: {
+                                'Accept': 'text/html,application/xhtml+xml,application/xml',
+                                'User-Agent': 'Mozilla/5.0 Sport NZ Media Asset Finder'
+                            },
+                            mode: 'cors'
+                        });
+                        
+                        if (directResponse.ok) {
+                            clearTimeout(timeoutId);
+                            return await directResponse.text();
+                        }
+                    } catch (directError) {
+                        console.log(`Direct fetch failed for ${url}: ${directError.message}`);
+                    }
+                    
+                    // Try each proxy with retry mechanism
+                    for (const proxyUrl of corsProxies) {
+                        // Try up to 2 times per proxy
+                        for (let attempt = 0; attempt < 2; attempt++) {
+                            try {
+                                console.log(`Trying proxy (attempt ${attempt + 1}): ${proxyUrl}`);
+                                
+                                const proxyResponse = await fetch(proxyUrl, {
+                                    signal: controller.signal,
+                                    headers: {
+                                        'Accept': 'text/html,application/xhtml+xml,application/xml',
+                                        'X-Requested-With': 'XMLHttpRequest'
+                                    }
+                                });
+                                
+                                if (proxyResponse.ok) {
+                                    clearTimeout(timeoutId);
+                                    return await proxyResponse.text();
+                                }
+                                
+                                // If we get rate limited (429), wait before retry
+                                if (proxyResponse.status === 429) {
+                                    await new Promise(resolve => setTimeout(resolve, 1000));
+                                    continue;
+                                }
+                                
+                                console.log(`Proxy ${proxyUrl} failed with status: ${proxyResponse.status}`);
+                            } catch (proxyError) {
+                                console.log(`Proxy ${proxyUrl} error: ${proxyError.message}`);
+                            }
+                            
+                            // Small delay between attempts
+                            if (attempt < 1) {
+                                await new Promise(resolve => setTimeout(resolve, 500));
+                            }
+                        }
+                    }
+                    
+                    // Last resort: try with no-cors mode (limited functionality)
+                    try {
+                        console.log(`Attempting no-cors mode for ${url}`);
+                        const noCorsResponse = await fetch(url, {
+                            mode: 'no-cors',
+                            headers: {
+                                'Accept': 'text/html,application/xhtml+xml,application/xml'
+                            }
+                        });
+                        
+                        // no-cors mode returns an opaque response that can't be read directly
+                        if (noCorsResponse.type === 'opaque') {
+                            clearTimeout(timeoutId);
+                            throw new Error('Cannot access content from opaque response');
+                        }
+                    } catch (noCorsError) {
+                        console.log(`No-cors attempt failed: ${noCorsError.message}`);
+                    }
+                    
+                    // If we get here, all methods failed
+                    clearTimeout(timeoutId);
+                    throw new Error(`All fetch methods failed for ${url}`);
+                    
+                } catch (error) {
+                    console.error(`Error fetching ${url}:`, error);
+                    throw new Error(`Could not fetch ${url}: ${error.message}`);
+                }
+            }
+        
+            // Process HTML content to extract media files
+            function processHtml(htmlContent, sourceUrl = '') {
+                try {
+                    // Create a DOM parser
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(htmlContent, 'text/html');
+                    
+                    // Get base URL for resolving relative links
+                    let baseUrl = sourceUrl;
+                    const baseTag = doc.querySelector('base');
+                    if (baseTag && baseTag.getAttribute('href')) {
+                        baseUrl = baseTag.getAttribute('href');
+                    }
+                    
+                    // Get page title
+                    let pageTitle = doc.title || 'No title';
+                    
+                    // Find all links
+                    const links = doc.querySelectorAll('a');
+                    
+                    // Process each link to find media files
+                    links.forEach(link => {
+                        const href = link.getAttribute('href');
+                        if (!href) return;
+                        
+                        // Format URL (resolve relative URLs)
+                        let formattedUrl = href;
+                        
+                        // Handle relative URLs
+                        if (!href.startsWith('http://') && !href.startsWith('https://') && !href.startsWith('mailto:') && !href.startsWith('tel:')) {
+                            if (href.startsWith('/')) {
+                                // Absolute path
+                                try {
+                                    const urlObj = new URL(baseUrl);
+                                    formattedUrl = `${urlObj.protocol}//${urlObj.host}${href}`;
+                                } catch (e) {
+                                    // If baseUrl is invalid, try to make a best guess
+                                    if (baseUrl && (baseUrl.startsWith('http://') || baseUrl.startsWith('https://'))) {
+                                        const domain = baseUrl.split('/').slice(0, 3).join('/');
+                                        formattedUrl = `${domain}${href}`;
+                                    }
+                                }
+                            } else {
+                                // Relative path
+                                try {
+                                    if (baseUrl) {
+                                        formattedUrl = new URL(href, baseUrl).href;
+                                    }
+                                } catch (e) {
+                                    // Keep as is if we can't resolve
+                                    console.log(`Could not resolve relative URL: ${href} against ${baseUrl}`);
+                                }
+                            }
+                        }
+                        
+                        // Check if this is a media file
+                        const fileType = getFileType(formattedUrl);
+                        if (fileType) {
+                            // Get file name from URL
+                            let fileName = '';
+                            try {
+                                const urlObj = new URL(formattedUrl);
+                                const pathParts = urlObj.pathname.split('/');
+                                fileName = pathParts[pathParts.length - 1];
+                                
+                                // Clean up file name if it has query parameters
+                                if (fileName.includes('?')) {
+                                    fileName = fileName.split('?')[0];
+                                }
+                                
+                                // Use link text if file name is empty or unclear
+                                if (!fileName || fileName === '/' || fileName.length < 3) {
+                                    fileName = link.textContent.trim() || 'Unnamed file';
+                                }
+                            } catch (e) {
+                                fileName = link.textContent.trim() || 'Unnamed file';
+                            }
+                            
+                            // Add to media assets
+                            allMediaAssets.push({
+                                sourceUrl: sourceUrl || 'Direct HTML Input',
+                                pageTitle: pageTitle,
+                                fileName: fileName,
+                                fileUrl: formattedUrl,
+                                fileType: fileType,
+                                fileSize: 'Unknown'
+                            });
+                        }
+                    });
+                    
+                    // Find embedded videos (iframes)
+                    const iframes = doc.querySelectorAll('iframe');
+                    iframes.forEach(iframe => {
+                        const src = iframe.getAttribute('src');
+                        if (!src) return;
+                        
+                        // Check if this is a video embed
+                        const isVideoEmbed = 
+                            src.includes('youtube.com/embed') || 
+                            src.includes('player.vimeo.com') || 
+                            src.includes('dailymotion.com/embed') ||
+                            src.includes('facebook.com/plugins/video');
+                        
+                        if (isVideoEmbed) {
+                            // Determine platform
+                            let platform = 'Unknown';
+                            if (src.includes('youtube')) platform = 'YouTube';
+                            else if (src.includes('vimeo')) platform = 'Vimeo';
+                            else if (src.includes('dailymotion')) platform = 'Dailymotion';
+                            else if (src.includes('facebook')) platform = 'Facebook';
+                            
+                            // Add to media assets
+                            allMediaAssets.push({
+                                sourceUrl: sourceUrl || 'Direct HTML Input',
+                                pageTitle: pageTitle,
+                                fileName: `Embedded ${platform} Video`,
+                                fileUrl: src,
+                                fileType: 'video',
+                                fileSize: 'Embedded'
+                            });
+                        }
+                    });
+                    
+                } catch (error) {
+                    console.error('Error processing HTML:', error);
+                    showNotification('Error processing HTML content', 'error');
+                }
+            }
+            
+            // Determine file type from URL
+            function getFileType(url) {
+                url = url.toLowerCase();
+                
+                // Check each file type
+                for (const [type, info] of Object.entries(fileTypes)) {
+                    if (info.extensions.some(ext => url.endsWith(ext))) {
+                        return type;
+                    }
+                }
+                
+                // Check for query string file types (e.g., file.php?download=document.pdf)
+                const queryMatch = url.match(/\.(pdf|docx?|xlsx?|pptx?|mp4|webm|mov)($|\?|&)/i);
+                if (queryMatch) {
+                    const ext = queryMatch[1].toLowerCase();
+                    if (ext === 'pdf') return 'pdf';
+                    if (['doc', 'docx'].includes(ext)) return 'word';
+                    if (['xls', 'xlsx'].includes(ext)) return 'excel';
+                    if (['ppt', 'pptx'].includes(ext)) return 'powerpoint';
+                    if (['mp4', 'webm', 'mov'].includes(ext)) return 'video';
+                }
+                
+                return null;
+            }
+            
+            // Filter and display results
+            function filterResults() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const enabledFileTypes = Array.from(fileTypeFilters)
+                    .filter(filter => filter.checked)
+                    .map(filter => filter.value);
+                
+                filteredMediaAssets = allMediaAssets.filter(asset => {
+                    // Apply search filter
+                    const matchesSearch = 
+                        (asset.sourceUrl && asset.sourceUrl.toLowerCase().includes(searchTerm)) ||
+                        (asset.pageTitle && asset.pageTitle.toLowerCase().includes(searchTerm)) ||
+                        asset.fileName.toLowerCase().includes(searchTerm) ||
+                        asset.fileUrl.toLowerCase().includes(searchTerm);
+                    
+                    // Apply file type filter
+                    const matchesFileType = enabledFileTypes.includes(asset.fileType);
+                    
+                    return matchesSearch && matchesFileType;
+                });
+                
+                // Update filtered count
+                filteredCount.textContent = `Showing ${filteredMediaAssets.length} of ${allMediaAssets.length} files`;
+                
+                // Display results
+                displayGroupedResults(filteredMediaAssets);
+            }
+            
+            // Group media assets by source URL
+            function groupAssetsBySource(assets) {
+                const groupedAssets = {};
+                
+                assets.forEach(asset => {
+                    const sourceKey = asset.sourceUrl || 'Direct HTML Input';
+                    
+                    if (!groupedAssets[sourceKey]) {
+                        groupedAssets[sourceKey] = {
+                            sourceUrl: sourceKey,
+                            pageTitle: asset.pageTitle || 'No title',
+                            assets: []
+                        };
+                    }
+                    
+                    groupedAssets[sourceKey].assets.push({
+                        fileName: asset.fileName,
+                        fileUrl: asset.fileUrl,
+                        fileType: asset.fileType,
+                        fileSize: asset.fileSize
+                    });
+                });
+                
+                return Object.values(groupedAssets);
+            }
+            
+            // Display results grouped by source URL
+            function displayGroupedResults(assets) {
+                resultsContainer.innerHTML = '';
+                
+                if (assets.length === 0) {
+                    noResults.classList.remove('hidden');
+                    return;
+                }
+                
+                noResults.classList.add('hidden');
+                
+                // Group assets by source URL
+                const groupedAssets = groupAssetsBySource(assets);
+                
+                groupedAssets.forEach((group, index) => {
+                    const sourceId = `source-${index}`;
+                    const isExpanded = expandedSources.has(sourceId);
+                    
+                    // Create source section
+                    const sourceSection = document.createElement('div');
+                    sourceSection.className = 'source-card';
+                    sourceSection.dataset.sourceId = sourceId;
+                    
+                    // Source header
+                    const sourceHeader = document.createElement('div');
+                    sourceHeader.className = 'source-header cursor-pointer';
+                    
+                    // Format URL for display
+                    let displayUrl = group.sourceUrl;
+                    if (displayUrl !== 'Direct HTML Input') {
+                        try {
+                            const url = new URL(displayUrl);
+                            displayUrl = url.hostname + url.pathname;
+                        } catch (e) {
+                            // Keep as is if invalid URL
+                        }
+                    }
+                    
+                    // Count file types
+                    const fileTypeCounts = {};
+                    group.assets.forEach(asset => {
+                        fileTypeCounts[asset.fileType] = (fileTypeCounts[asset.fileType] || 0) + 1;
+                    });
+                    
+                    // Create file type badges HTML
+                    let fileTypeBadgesHtml = '';
+                    for (const [type, count] of Object.entries(fileTypeCounts)) {
+                        if (fileTypes[type]) {
+                            fileTypeBadgesHtml += `
+                                <span class="file-badge ${fileTypes[type].class} mr-2">
+                                    <i class="fas ${fileTypes[type].icon} mr-1"></i> ${count} ${fileTypes[type].name}${count > 1 ? 's' : ''}
+                                </span>
+                            `;
+                        }
+                    }
+                    
+                    sourceHeader.innerHTML = `
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-medium text-lg flex items-center">
+                                    <i class="fas fa-globe-americas text-gray-400 mr-2"></i>
+                                    ${escapeHtml(displayUrl)}
+                                </h3>
+                                <p class="text-sm text-gray-600 mt-1">
+                                    <span class="font-medium">Page Title:</span> ${escapeHtml(group.pageTitle)}
+                                </p>
+                                <div class="flex flex-wrap items-center mt-2">
+                                    ${fileTypeBadgesHtml}
+                                    <span class="badge badge-accent">
+                                        <i class="fas fa-file-alt mr-1"></i> ${group.assets.length} total files
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">
+                                <i class="fas ${isExpanded ? 'fa-chevron-up' : 'fa-chevron-down'} text-gray-400"></i>
+                            </div>
+                        </div>
+                    `;
+                    
+                    sourceSection.appendChild(sourceHeader);
+                    
+                    // Assets table container
+                    const tableContainer = document.createElement('div');
+                    tableContainer.className = `overflow-x-auto ${isExpanded ? '' : 'hidden'}`;
+                    
+                    // Assets table
+                    const assetsTable = document.createElement('table');
+                    assetsTable.className = 'results-table';
+                    
+                    // Table header
+                    const tableHeader = document.createElement('thead');
+                    tableHeader.innerHTML = `
+                        <tr>
+                            <th>File Type</th>
+                            <th>File Name</th>
+                            <th>URL</th>
+                        </tr>
+                    `;
+                    assetsTable.appendChild(tableHeader);
+                    
+                    // Table body
+                    const tableBody = document.createElement('tbody');
+                    
+                    // Add assets to table
+                    group.assets.forEach(asset => {
+                        const row = document.createElement('tr');
+                        
+                        // Get file type info
+                        const fileTypeInfo = fileTypes[asset.fileType] || {
+                            icon: 'fa-file',
+                            class: 'file-badge-other',
+                            name: 'Other'
+                        };
+                        
+                        row.innerHTML = `
+                            <td>
+                                <span class="file-badge ${fileTypeInfo.class}">
+                                    <i class="fas ${fileTypeInfo.icon} mr-1"></i> ${fileTypeInfo.name}
+                                </span>
+                            </td>
+                            <td class="max-w-xs truncate" title="${escapeHtml(asset.fileName)}">
+                                ${escapeHtml(asset.fileName)}
+                            </td>
+                            <td>
+                                <a href="${asset.fileUrl}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 hover:underline flex items-center">
+                                    <span class="truncate max-w-md">${escapeHtml(asset.fileUrl)}</span>
+                                    <i class="fas fa-external-link-alt ml-1 text-xs"></i>
+                                </a>
+                            </td>
+                        `;
+                        
+                        tableBody.appendChild(row);
+                    });
+                    
+                    assetsTable.appendChild(tableBody);
+                    tableContainer.appendChild(assetsTable);
+                    sourceSection.appendChild(tableContainer);
+                    
+                    // Toggle expansion on header click
+                    sourceHeader.addEventListener('click', function() {
+                        const tableContainer = this.nextElementSibling;
+                        const toggleIcon = this.querySelector('.toggle-icon i');
+                        const sourceId = this.parentElement.dataset.sourceId;
+                        
+                        if (tableContainer.classList.contains('hidden')) {
+                            tableContainer.classList.remove('hidden');
+                            toggleIcon.classList.replace('fa-chevron-down', 'fa-chevron-up');
+                            expandedSources.add(sourceId);
+                        } else {
+                            tableContainer.classList.add('hidden');
+                            toggleIcon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+                            expandedSources.delete(sourceId);
+                        }
+                    });
+                    
+                    // Add to results container
+                    resultsContainer.appendChild(sourceSection);
+                });
+            }
+            
+            // Expand all sections
+            expandAllBtn.addEventListener('click', function() {
+                const sourceSections = document.querySelectorAll('.source-card');
+                sourceSections.forEach(section => {
+                    const tableContainer = section.querySelector('.overflow-x-auto');
+                    const toggleIcon = section.querySelector('.toggle-icon i');
+                    const sourceId = section.dataset.sourceId;
+                    
+                    tableContainer.classList.remove('hidden');
+                    toggleIcon.classList.replace('fa-chevron-down', 'fa-chevron-up');
+                    expandedSources.add(sourceId);
+                });
+            });
+            
+            // Collapse all sections
+            collapseAllBtn.addEventListener('click', function() {
+                const sourceSections = document.querySelectorAll('.source-card');
+                sourceSections.forEach(section => {
+                    const tableContainer = section.querySelector('.overflow-x-auto');
+                    const toggleIcon = section.querySelector('.toggle-icon i');
+                    const sourceId = section.dataset.sourceId;
+                    
+                    tableContainer.classList.add('hidden');
+                    toggleIcon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+                    expandedSources.delete(sourceId);
+                });
+            });
+            
+            // Escape HTML to prevent XSS
+            function escapeHtml(unsafe) {
+                if (!unsafe) return '';
+                return unsafe
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;");
+            }
+            
+            // Search functionality
+            searchInput.addEventListener('input', filterResults);
+            
+            // Clear button
+            clearBtn.addEventListener('click', function() {
+                inputContent.value = '';
+                resultsSection.classList.add('hidden');
+                progressSection.classList.add('hidden');
+                allMediaAssets = [];
+                filteredMediaAssets = [];
+                expandedSources = new Set();
+            });
+            
+            // Export to CSV
+            exportBtn.addEventListener('click', function() {
+                if (filteredMediaAssets.length === 0) {
+                    showNotification('No data to export.', 'warning');
+                    return;
+                }
+                
+                // Prepare data for CSV
+                const csvData = filteredMediaAssets.map(asset => ({
+                    'Source URL': asset.sourceUrl,
+                    'Page Title': asset.pageTitle,
+                    'File Name': asset.fileName,
+                    'File Type': fileTypes[asset.fileType] ? fileTypes[asset.fileType].name : 'Other',
+                    'File URL': asset.fileUrl,
+                    'File Size': asset.fileSize
+                }));
+                
+                try {
+                    // Use PapaParse to convert to CSV
+                    const csv = Papa.unparse(csvData);
+                    
+                    // Create download link
+                    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.setAttribute('href', url);
+                    link.setAttribute('download', 'sport_nz_media_assets.csv');
+                    link.style.visibility = 'hidden';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    
+                    showNotification('Export successful!', 'success');
+                    
+                    // Try to use the save_data_to_csv function if available
+                    if (typeof window.save_data_to_csv === 'function') {
+                        try {
+                            window.save_data_to_csv('sport_nz_media_assets.csv', csvData);
+                        } catch (e) {
+                            console.log('Optional save_data_to_csv function not available or failed:', e);
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error exporting CSV:', error);
+                    showNotification('Error exporting to CSV.', 'error');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
